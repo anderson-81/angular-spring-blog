@@ -1,0 +1,60 @@
+<div>
+  <header class="masthead">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>AngularBlog</h1>
+            <span class="subheading">A Blog made in Angular</span>
+            <span class="subheading">
+              <form (ngSubmit)="onSearch()">
+                <input type="hidden" name="token" id="token" [(ngModel)]="token">
+                <fieldset ngDisabled="status">
+                  <div class="input-group">
+                    <input type="hidden" name="token" id="token" ng-model="token">
+                    <input type="text" maxlength="100" name="search" id="search" type="text" [(ngModel)]="search" class="form-control"
+                      placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit" value="Search">Search</button>
+                    </span>
+                  </div>
+                </fieldset>
+              </form>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <!-- Pager -->
+        <div class="clearfix pull-right">
+          <pagination-controls (pageChange)="p = $event" class="hide-page-numbers"></pagination-controls>
+        </div>
+        <div class="post-preview" *ngFor="let post of posts | paginate: { itemsPerPage: 5, currentPage: p }">
+          <a [routerLink]="['/details', post.id]">
+            <h2 class="post-title">
+              {{ post.title }}
+            </h2>
+            <h3 class="post-subtitle">
+              {{ post.briefing }}
+            </h3>
+          </a>
+          <p class="post-meta">Posted by
+            <a href="#">{{ post.name }}</a>
+            on {{ post.datepost | date:'medium' }} <span *ngIf="post.dateupdate">and updated on {{ post.dateupdate |
+              date:'medium' }}</span></p>
+          <hr>
+        </div>
+        <!-- Pager -->
+        <div class="clearfix pull-right">
+          <pagination-controls (pageChange)="p = $event" class="hide-page-numbers"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>

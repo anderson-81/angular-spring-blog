@@ -1,0 +1,38 @@
+
+body{
+    background-color:#424345;
+    color:white;
+}
+
+input[type=text], input[type=file], textarea{
+    border: 3px solid black;
+}
+
+.errors{
+    color:red;
+    background-color:#ffe8a1; 
+    border-radius: 5px;
+    border: 3px solid red;
+}
+
+.cont-frm{
+    margin-top: 5%;
+}
+
+textarea {
+    border: 3px solid black !important;
+    resize: none;
+}
+
+#author_name{
+    background-color: #b9bbbe;
+    font-weight:bold;
+}
+
+.img-edit{
+    width:250px;
+    border:3px solid black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+

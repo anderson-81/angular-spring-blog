@@ -1,0 +1,35 @@
+<div *ngIf="status">
+  <!-- Page Header -->
+  <header class="masthead" [ngStyle]="{ 'background-image': 'url(' + post.picture + ')'}">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>{{post.title}}</h1>
+            <h5 class="subheading">{{post.briefing}}</h5>
+            <span class="meta">Posted by {{post.author}} on {{post.datepost | date:'medium'}} </span>
+            <span class="meta" *ngIf="post.dateupdate"> and uptaded on {{post.dateupdate | date:'medium'}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <p>{{post.text}}</p>
+        </div>
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="clearfix">
+            <a href="/index" class="btn btn-secondary float-right col-md-2" href="#">Back</a>
+            <button type="button" (click)="toEdit()" class="btn btn-warning float-right col-md-2" *ngIf="logged">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>

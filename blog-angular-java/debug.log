@@ -1,0 +1,2 @@
+[1018/050451.215:ERROR:file_io.cc(134)] WriteFile: The pipe is being closed. (0xE8)
+[1023/213321.892:ERROR:crash_report_database_win.cc(428)] unexpected header

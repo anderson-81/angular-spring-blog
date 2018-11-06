@@ -1,0 +1,137 @@
+<div class="container cont-frm" id="divEdit" *ngIf="status">
+  <div class="row">
+    <div class='offset-md-1 col-md-10 offset-md-1'>
+      <div class="form-group">
+        <h1>{{ title }}</h1>
+      </div>
+      <div *ngIf="edit == 1">
+        <div class="form-group">
+          <label for="">Author</label>
+          <input type="text" class='form-control' readonly="true" [(ngModel)]="author">
+        </div>
+        <hr>
+      </div>
+      <form enctype="multipart/form-data" (ngSubmit)="onSubmit()">
+        <fieldset ng-disabled="statusDisable">
+          <div class="form-group">
+            <div id="errors" class="errors" *ngIf="errors.length > 0">
+              <ul>
+                <li *ngFor="let error of errors">
+                  {{ error }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="hidden" name="token" id="token" [(ngModel)]="token">
+          </div>
+          <div class="form-group">
+            <input type="hidden" name="id" id="id" [(ngModel)]="post.id" *ngIf="edit == 1">
+          </div>
+          <div class="form-group">
+            <label for="">Title</label>
+            <input type="text" maxlength="50" class='form-control' name="title" id="title" [(ngModel)]="post.title"
+              (input)="setChange()">
+          </div>
+          <div class="form-group">
+            <label for="">Briefing</label>
+            <input type="text" class='form-control' maxlength="50" name="briefing" id="briefing" [(ngModel)]="post.briefing"
+              (input)="setChange()">
+          </div>
+          <div class="form-group">
+            <label for="">Text</label>
+            <textarea name="text" class='form-control' id="text" cols="30" rows="10" [(ngModel)]="post.text" (input)="setChange()"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="">Picture</label>
+            <img src="{{picture_preview}}" class="img-edit pull-right" id="imgPost" *ngIf="edit == 1">
+            <input type="file" class="form-control" id='filePicture' (change)="inputFile($event)" accept=".jpg,.jpge,.png,.bmp" (input)="setChange()">
+          </div>
+          <div class="form-group" *ngIf="edit == 1">
+            <a class="btn btn-secondary col-md-2 pull-right">Cancel</a>
+            <button type="button" class="btn btn-warning col-md-2 pull-right" data-toggle="modal" data-target="#modalEdit">Edit</button>
+            <button type="button" class="btn btn-danger col-md-2 pull-right" data-toggle="modal" data-target="#modalDelete">Delete</button>
+          </div>
+          <div class="form-group" *ngIf="edit == 0">
+            <button type="submit" class='btn btn-success col-md-2 pull-right'>Create</button>
+            <a [routerLink]="['/']" class="btn btn-secondary col-md-2 pull-right">Cancel</a>
+            <button type="button" class='btn btn-info col-md-2 pull-right' data-toggle="modal" data-target="#modalClear">Clean</button>
+          </div>
+        </fieldset>
+
+        <div id="modalEdit" class="modal fade" role="dialog" *ngIf="edit == 1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Question</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <p>Do you want edit this post?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="editPost()">Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="modalDelete" class="modal fade" role="dialog" *ngIf="edit == 1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Question</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <p>Do you want delete this post?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deletePost()">Ok</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="modalDeactivate" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Question</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <p>Do you want to quit and lose the changes made to the form?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="setConfirmDeactivate(false)">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="setConfirmDeactivate(true)">Ok</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="modalClear" class="modal fade" role="dialog" *ngIf="edit == 0">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Question</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <p>Do you want to clean post's form?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" (click)="onReset(1)">Ok</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
